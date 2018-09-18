@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.quantitation.mapper.TranscationMapper">
+
+    <select id="getAll" resultType="com.liu.quantitation.pojo.TransactionPojo">
+       select * from tb_transaction
+    </select>
+
+    <insert id="add" parameterType="com.liu.quantitation.param.AddTransactionParam">
+        INSERT INTO tb_transaction (buy_price,count,coin_name,buy_time,buy_handling_fee,flag,trans_pair)
+        VALUES (#{buyPrice},#{count},#{coinName},#{buyTime},#{buyHandlingFee},#{flag},#{transPair})
+    </insert>
+
+    <select id="getAllByTransPair" parameterType="String" resultType="com.liu.quantitation.pojo.TransactionPojo">
+        select * from tb_transaction where trans_pair=#{transPair} and flag=1
+    </select>
+
+    <update id="setSellFlag" parameterType="Integer">
+        update tb_transaction set flag=2 where id=#{id}
+    </update>
+</mapper>
